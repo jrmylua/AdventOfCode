@@ -9,16 +9,30 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] anArguments)
     {
-        List<Integer> myList = parseInput("/Users/jlua/Documents/ForFun/src/2019-1.txt");
-        int myResult = myList.stream().map(Main::getFuel).reduce(0, Integer::sum);
+        List<Integer> aList = parseInput("/Users/jlua/Documents/ForFun/2020/input.txt");
 
-        print(String.valueOf(myResult));
+        print(get2020(aList));
     }
 
-    public static int getFuel(int aMass)
+    public static int get2020(List<Integer> aList)
     {
-        int aFuel = aMass / 3 - 2;
-        return aFuel < 0 ? 0 : aFuel + getFuel(aFuel);
+        for (int i = 0; i < aList.size(); ++i)
+        {
+            int myVal = aList.get(i);
+            for (int j = i + 1; j < aList.size(); ++j)
+            {
+                int mySecondVal = aList.get(j);
+                for (int k = j + 1; k < aList.size(); ++k)
+                {
+                    int myThirdVal = aList.get(k);
+                    if (myVal + mySecondVal + myThirdVal == 2020)
+                    {
+                        return myVal * mySecondVal * myThirdVal;
+                    }
+                }
+            }
+        }
+        return -1;
     }
 
     public static List<Integer> parseInput(String aFilename)
@@ -31,6 +45,11 @@ public class Main {
             print("File could not be opened");
         }
         return Collections.emptyList();
+    }
+
+    public static void print(int aNum)
+    {
+        print(String.valueOf(aNum));
     }
 
     public static void print(String aMessage)
