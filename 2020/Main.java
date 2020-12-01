@@ -1,10 +1,7 @@
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] anArguments)
@@ -37,14 +34,20 @@ public class Main {
 
     public static List<Integer> parseInput(String aFilename)
     {
-        try (Stream<String> stream = Files.lines(Paths.get(aFilename))) {
-            return stream.map(Integer::parseInt).collect(Collectors.toCollection(ArrayList::new));
+        List<Integer> myResult = new ArrayList<>();
+        try (Scanner myScanner = new Scanner(new File(aFilename)))
+        {
+            myScanner.useDelimiter("");
+            while (myScanner.hasNextInt())
+            {
+                myResult.add(myScanner.nextInt());
+            }
         }
         catch (Exception ignored)
         {
             print("File could not be opened");
         }
-        return Collections.emptyList();
+        return myResult;
     }
 
     public static void print(int aNum)
