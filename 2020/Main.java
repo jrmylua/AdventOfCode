@@ -2,44 +2,48 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] anArguments)
     {
-        List<Integer> aList = parseInput("/Users/jlua/Documents/ForFun/2020/input.txt");
-        print(get2020(aList));
-    }
-
-    public static int get2020(List<Integer> aList)
-    {
-        for (int i = 0; i < aList.size(); ++i)
+        List<String> aList = parseInput("/Users/jlua/Documents/ForFun/2020/input.txt");
+        int myResult = 0;
+        for (String myLine : aList)
         {
-            int myVal = aList.get(i);
-            for (int j = i + 1; j < aList.size(); ++j)
+            String myRegex = "(\\d+)-(\\d+) ([a-z]): ([a-z]+)";
+            Pattern myPattern = Pattern.compile(myRegex);
+            Matcher myMatcher = myPattern.matcher(myLine);
+            if (myMatcher.find())
             {
-                int mySecondVal = aList.get(j);
-                for (int k = j + 1; k < aList.size(); ++k)
+                int myFirst = Integer.parseInt(myMatcher.group(1)) - 1;
+                int mySecond = Integer.parseInt(myMatcher.group(2)) - 1;
+                String myChar = myMatcher.group(3);
+                String myPassword = myMatcher.group(4);
+                if (isValid(myFirst, mySecond, myChar, myPassword))
                 {
-                    int myThirdVal = aList.get(k);
-                    if (myVal + mySecondVal + myThirdVal == 2020)
-                    {
-                        return myVal * mySecondVal * myThirdVal;
-                    }
+                    ++myResult;
                 }
             }
         }
-        return -1;
+        print(myResult);
     }
 
-    public static List<Integer> parseInput(String aFilename)
+    private static boolean isValid(int myFirst, int mySecond, String myChar, String myPassword) {
+        return myPassword.charAt(myFirst) == myChar.charAt(0) && myPassword.charAt(mySecond) != myChar.charAt(0)
+                || myPassword.charAt(mySecond) == myChar.charAt(0) && myPassword.charAt(myFirst) != myChar.charAt(0);
+    }
+
+    public static List<String> parseInput(String aFilename)
     {
-        List<Integer> myResult = new ArrayList<>();
+        List<String> myResult = new ArrayList<>();
         try (Scanner myScanner = new Scanner(new File(aFilename)))
         {
             myScanner.useDelimiter("");
-            while (myScanner.hasNextInt())
+            while (myScanner.hasNext())
             {
-                myResult.add(myScanner.nextInt());
+                myResult.add(myScanner.nextLine());
             }
         }
         catch (Exception ignored)
