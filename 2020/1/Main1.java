@@ -7,7 +7,7 @@ public class Main1
 {
     public static void main(String[] anArguments)
     {
-        List<Integer> aList = parseInput("/Users/jlua/Documents/ForFun/2020/1/input.txt");
+        List<Integer> aList = parseInput(Utility.getInputFilename(1));
         print(get2020(aList));
     }
 

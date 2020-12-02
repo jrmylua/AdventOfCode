@@ -9,7 +9,7 @@ public class Main2
 {
     public static void main(String[] anArguments)
     {
-        List<String> aList = parseInput("/Users/jlua/Documents/ForFun/2020/2/input.txt");
+        List<String> aList = parseInput(Utility.getInputFilename(2));
         int myResult = 0;
         for (String myLine : aList)
         {
