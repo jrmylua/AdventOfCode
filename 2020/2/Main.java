@@ -5,10 +5,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
+public class Main
+{
     public static void main(String[] anArguments)
     {
-        List<String> aList = parseInput("/Users/jlua/Documents/ForFun/2020/input.txt");
+        List<String> aList = parseInput("/Users/jlua/Documents/ForFun/2020/2/input.txt");
         int myResult = 0;
         for (String myLine : aList)
         {
@@ -30,7 +31,8 @@ public class Main {
         print(myResult);
     }
 
-    private static boolean isValid(int myFirst, int mySecond, String myChar, String myPassword) {
+    private static boolean isValid(int myFirst, int mySecond, String myChar, String myPassword)
+    {
         return myPassword.charAt(myFirst) == myChar.charAt(0) && myPassword.charAt(mySecond) != myChar.charAt(0)
                 || myPassword.charAt(mySecond) == myChar.charAt(0) && myPassword.charAt(myFirst) != myChar.charAt(0);
     }
